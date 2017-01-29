@@ -8,13 +8,13 @@ from nltk.corpus import stopwords
 
 
 def read_data():
-    return pd.read_csv(os.path.join(os.path.dirname(__file__), 'data', 'text_emotion.csv'))
+    return pd.read_csv(os.path.join(os.path.dirname(__file__), 'data', 'real_data.csv'))
 
 def get_sentences(data):
-    return data['content'].values.tolist()
+    return data['sentence'].values.tolist()
 
 def get_emotions(data):
-    return data['sentiment'].values.tolist()
+    return data['emotion'].values.tolist()
 
 
 
