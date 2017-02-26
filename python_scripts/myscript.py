@@ -39,13 +39,11 @@ if __name__ == '__main__':
     print "Training the SVM (this may take a while)..."
 
     # Initialize a SVM classifier
-    model = SVM(max_iter=100, kernel_type='linear', C=1.0, epsilon=0.001)
+    model = SVM(max_iter=10000, kernel_type='linear', C=1.0, epsilon=0.001)
 
     X = get_features(sentences)
     y = np.vectorize(emotion_numbers.get)(emotions)
 
-    print X
-    print y
     # Fit the SVM to the training set, using the bag of words as
     # features and the sentiment labels as the response variable
     #
