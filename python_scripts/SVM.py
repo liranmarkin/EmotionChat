@@ -77,7 +77,7 @@ class SVM():
         b_tmp = y - np.dot(w.T, X.T)
         return np.mean(b_tmp)
     def calc_w(self, alpha, y, X):
-        return np.dot(alpha * y, X)
+        return np.dot(np.dot(alpha , y), X)
     # Prediction
     def h(self, X, w, b):
         return np.sign(np.dot(w.T, X.T) + b).astype(int)
