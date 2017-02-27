@@ -1,0 +1,17 @@
+{
+  "name": "EmotionChat",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "private": false,
+  "license": "BSD",
+  "dependencies": {
+    "express": "4.13.4",
+    "python-shell": "^0.4.0",
+    "socket.io": "^1.7.3"
+  },
+  "scripts": {
+    "start": "node index"
+  }
+}
