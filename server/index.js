@@ -14,32 +14,42 @@ server.listen(port, function () {
 app.use(express.static(__dirname + '/public'));
 
 // Start python_scripts
-// TODO: communicate with python script as socket server
-var pyshell = new PythonShell('../python_scripts/simple.py');
+
+var pyshell = new PythonShell('../python_scripts/simple.py', {mode: 'text'});
 
 
 pyshell.on('message', function (message) {
-    console.log(message);
+    console.log('returned: ' + message);
+    message = Buffer.from(message, 'base64').toString('ascii').split(" ");
+    message_id = Number(message[0]);
+    message_content = message[1];
+    console.log("id: " + message_id + " result: " + message_content);
 });
 
-/*pyshell.end(function(err){
-  if(err) throw err;
-  console.log('done!');
-});*/
+var send_message_pyshell = function (message) {
+    encoded = Buffer.from(message).toString('base64');
+    console.log('encoded: '+encoded);
+    pyshell.send(encoded);
+    pyshell.receive(message);
+};
+
 
 // Chatroom
 
 var numUsers = 0;
-
+var message_id = 0;
 io.on('connection', function (socket) {
   var addedUser = false;
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
     // we tell the client to execute 'new message'
+    //data = message
+    id = message_id++;
+    send_message_pyshell([id, data].join(' '));
     socket.broadcast.emit('new message', {
-      username: socket.username,
-      message: data
+        username: socket.username,
+        message: data
     });
   });
 
