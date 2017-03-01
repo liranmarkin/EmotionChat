@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/public'));
 
 // Start python_scripts
 
-var pyshell = new PythonShell('../python_scripts/simple.py', {mode: 'text'});
+var pyshell = new PythonShell('../python_scripts/use_model.py', {mode: 'text'});
 
 
 pyshell.on('message', function (message) {
@@ -30,7 +30,6 @@ var send_message_pyshell = function (message) {
     encoded = Buffer.from(message).toString('base64');
     console.log('encoded: '+encoded);
     pyshell.send(encoded);
-    pyshell.receive(message);
 };
 
 
@@ -45,7 +44,8 @@ io.on('connection', function (socket) {
   socket.on('new message', function (data) {
     // we tell the client to execute 'new message'
     //data = message
-    id = message_id++;
+    id = ++message_id;
+    console.log(id);
     send_message_pyshell([id, data].join(' '));
     socket.broadcast.emit('new message', {
         username: socket.username,
