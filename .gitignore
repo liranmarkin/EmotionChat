@@ -1,0 +1,5 @@
+.idea
+python_scripts/BagOfWords.pyc
+python_scripts/model/model_v1_01.npy
+python_scripts/model/model_v1_02.npy
+server/node_modules/

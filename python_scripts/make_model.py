@@ -1,25 +1,29 @@
 import os
 
-import pandas as pd
 import numpy as np
 from BagOfWords import BagOfWords
 from sklearn.svm import LinearSVC, SVC
 from sklearn.externals import joblib
+import pandas as pd
 
 
 def read_data(path):
     return pd.read_csv(os.path.join(os.path.dirname(__file__), path))
 
+
 def get_sentences(data):
     return data['sentence'].values
 
+
 def get_emotions(data):
     return data['emotion'].values
+
 
 def initialize_model():
     # Initialize a SVM classifier
     model = LinearSVC(max_iter=1000, tol=0.0001, C=1.0, class_weight=None, verbose=True, random_state=None)
     return model
+
 
 def fit_model(model, X, y):
     # Fit the model using the bag of words
@@ -37,7 +41,6 @@ if __name__ == '__main__':
     print "Reading data from file"
 
     train = read_data('./data/real_data.csv')
-    #train = train['emotion' in ['sadness', 'worry', 'surprise']]
 
     test = train[1000:2000]
     train = train[:40000]
@@ -51,11 +54,11 @@ if __name__ == '__main__':
     bag = BagOfWords()
 
     X = bag.fit_transform(sentences)
-    #y = np.vectorize(emotion_numbers.get)(emotions)
+    # y = np.vectorize(emotion_numbers.get)(emotions)
     y = emotions
 
-    model = initialize_model()
-    model = fit_model(model, X, y)
+    g_model = initialize_model()
+    g_model = fit_model(g_model, X, y)
     print "Press Enter to run test..."
     raw_input()
 
@@ -65,7 +68,7 @@ if __name__ == '__main__':
     X = bag.transform(sentences)
     y = emotions
 
-    print 'model score: ', model.score(X, y)
+    print 'model score: ', g_model.score(X, y)
 
     print "Press Enter to save the model..."
     raw_input()
@@ -75,7 +78,7 @@ if __name__ == '__main__':
     save_path_model = os.path.join('./model/', save_name_model)
     save_path_bag = os.path.join('./model/', save_name_bag)
 
-    joblib.dump(model, save_path_model)
+    joblib.dump(g_model, save_path_model)
     joblib.dump(bag, save_path_bag)
 
     print "Model saved as ", save_name_model

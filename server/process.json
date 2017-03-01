@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "emotion_chat",
+      "script": "./index.js",
+      "env": {
+        "watch": true,
+        "NODE_ENV": "development"
+      },
+      "env_production": {
+        "watch": false,
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
