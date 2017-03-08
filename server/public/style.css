@@ -123,6 +123,10 @@ ul {
   padding: 10px 20px 10px 20px;
 }
 
+.message {
+    margin: 8px;
+}
+
 .message.typing .messageBody {
   color: gray;
 }
@@ -146,4 +150,12 @@ ul {
   position: absolute;
   right: 0;
   width: 100%;
+}
+
+/* Emotion */
+.emotion {
+    border-radius: 5px;
+    float: right;
+    color: white;
+    padding: 2px 5px;
 }

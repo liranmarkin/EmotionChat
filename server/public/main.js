@@ -9,18 +9,18 @@ $(function () {
     ];
 
     let EMOTION_COLORS = {
-        neutral: 'gray',
-        sadness: 'blue',
-        happiness: 'green',
-        worry: 'orange',
-        surprise: 'yellow',
-        love: 'pink',
-        hate: 'darkred',
-        fun: 'purple',
-        relief: 'lightblue',
-        enthusiasm: 'lightgreen',
-        boredom: 'brown',
-        empty: 'gray'
+        neutral: '#767676',
+        sadness: '#2185D0',
+        happiness: '#21BA45',
+        worry: '#F2711C',
+        surprise: '#FBBD08',
+        love: '#E03997',
+        hate: '#A5673F',
+        fun: '#A333C8',
+        relief: '#00B5AD',
+        enthusiasm: '#B5CC18',
+        boredom: '#6435C9',
+        empty: '#1B1C1D'
     };
 
 
@@ -117,7 +117,7 @@ $(function () {
     socket.on('reconnect_error', () => log('attempt to reconnect has failed'));
 
     socket.on('emotion', data => {
-        const htm = $(`#${data.local_id}`).append($(' <span>').text(`(${data.emotion})`).css('color', EMOTION_COLORS[data.emotion]));
+        $(`#${data.local_id}`).append(createEmotionDiv(data.emotion));
     });
 
     // Prevents input from having injected markup
@@ -183,16 +183,17 @@ $(function () {
         let $usernameDiv = $('<span class="username"/>')
             .text(data.username)
             .css('color', getUsernameColor(data.username));
-        let $messageSpan = $(`<span>`).text(data.message);
-        if (data.emotion) $messageSpan.append($(' <span>').text(`(${data.emotion})`).css('color', EMOTION_COLORS[data.emotion]));
-        let $messageBodyDiv = $(`<span class="messageBody" id="${++local_id}">`)
-            .html($messageSpan);
+
+        let $messageBodyDiv = $(`<span class="messageBody">`)
+            .text(data.message);
 
         let typingClass = data.typing ? 'typing' : '';
-        let $messageDiv = $('<li class="message"/>')
+        let $messageDiv = $(`<li class="message" id="${++local_id}"/>`)
             .data('username', data.username)
             .addClass(typingClass)
             .append($usernameDiv, $messageBodyDiv);
+
+        if(data.emotion) $messageDiv.append(createEmotionDiv(data.emotion));
 
         addMessageElement($messageDiv, options);
     }
@@ -248,6 +249,12 @@ $(function () {
         getTypingMessages(data).fadeOut(function () {
             $(this).remove();
         });
+    }
+
+    function createEmotionDiv(emotion) {
+        return $(`<span class="emotion">`)
+            .text(emotion)
+            .css('background-color', EMOTION_COLORS[emotion]);
     }
 
     // Sends a chat message
