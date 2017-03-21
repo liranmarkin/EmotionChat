@@ -184,7 +184,7 @@ $(function () {
             .text(data.username)
             .css('color', getUsernameColor(data.username));
 
-        let $messageBodyDiv = $(`<span class="messageBody">`)
+        let $messageBodyDiv = $(`<span class="messageBody"/>`)
             .text(data.message);
 
         let typingClass = data.typing ? 'typing' : '';
@@ -252,9 +252,32 @@ $(function () {
     }
 
     function createEmotionDiv(emotion) {
-        return $(`<span class="emotion">`)
+        $emotionDiv = $(`<div class="emotionDiv"/>`);
+
+        $emotionSpan = $(`<span class="emotion"/>`)
             .text(emotion)
-            .css('background-color', EMOTION_COLORS[emotion]);
+            .css('background-color', EMOTION_COLORS[emotion])
+            .show();
+
+        $emotionHover = $(`<div class="emotionHover"/>`)
+            .hide();
+
+        for (const key in EMOTION_COLORS){
+            $emotionHover.append($(`<span class="emotion"/>`)
+                .text(key)
+                .css('background-color', EMOTION_COLORS[key]));
+        }
+
+        $emotionDiv.append($emotionSpan).append($emotionHover);
+
+        $emotionDiv.mouseover(function() {
+            $(this).children().toggle();
+        });
+        $emotionDiv.mouseout(function() {
+            $(this).children().toggle();
+        });
+
+        return $emotionDiv;
     }
 
     // Sends a chat message
