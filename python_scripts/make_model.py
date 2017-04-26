@@ -73,8 +73,8 @@ if __name__ == '__main__':
     print "Press Enter to save the model..."
     raw_input()
 
-    save_name_model = 'model_v1'
-    save_name_bag = 'bag_v1'
+    save_name_model = 'model_v1.0.1'
+    save_name_bag = 'bag_v1.0.1'
     save_path_model = os.path.join('./model/', save_name_model)
     save_path_bag = os.path.join('./model/', save_name_bag)
 
@@ -83,11 +83,3 @@ if __name__ == '__main__':
 
     print "Model saved as ", save_name_model
     print "Bag saved as ", save_name_bag
-
-
-
-
-
-
-
-

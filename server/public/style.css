@@ -153,16 +153,18 @@ ul {
 
 /* Emotion */
 
+.emotionDiv{
+  float: right
+}
+
 .emotion {
     border-radius: 5px;
-    float: right;
     color: white;
     padding: 2px 5px;
     margin: 2px 2px;
 }
 
 .emotionHover{
-    float: right;
     border-radius: 3px;
     padding: 3px;
     background-color: lightgrey;

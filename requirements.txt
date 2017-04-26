@@ -1,0 +1,5 @@
+numpy==1.12.1
+scikit-learn==0.18.1
+scipy==0.19.0
+sortedcollections==0.5.3
+sortedcontainers==1.5.7
