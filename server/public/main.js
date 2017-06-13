@@ -75,7 +75,7 @@ $(function () {
   socket.on('login', data => {
     connected = true
         // Display the welcome message
-    let message = 'Welcome to Socket.IO Chat – '
+    let message = `Welcome to EmotionChat – write in English to be analyzed!`
     log(message, {
       prepend: true
     })
