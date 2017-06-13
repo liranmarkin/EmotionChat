@@ -1,0 +1,1 @@
+{"text":"this is not working","emotion":"worry"},{"text":"are mad at me?","emotion":"worry"},{"text":"all of my files has been destroyed!","emotion":"sadness"},
