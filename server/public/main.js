@@ -24,13 +24,13 @@ $(function () {
   }
 
     // Initialize letiables
-  let $window = $(window)
-  let $usernameInput = $('.usernameInput') // Input for username
-  let $messages = $('.messages') // Messages area
-  let $inputMessage = $('.inputMessage') // Input message input box
+  const $window = $(window)
+  const $usernameInput = $('.usernameInput') // Input for username
+  const $messages = $('.messages') // Messages area
+  const $inputMessage = $('.inputMessage') // Input message input box
 
-  let $loginPage = $('.login.page') // The login page
-  let $chatPage = $('.chat.page') // The chatroom page
+  const $loginPage = $('.login.page') // The login page
+  const $chatPage = $('.chat.page') // The chatroom page
 
     // Prompt for setting a username
   let username
@@ -41,7 +41,7 @@ $(function () {
 
 
 
-  let socket = io()
+  const socket = io()
     // Keyboard events
 
   $window.keydown(event => {
@@ -75,7 +75,7 @@ $(function () {
   socket.on('login', data => {
     connected = true
         // Display the welcome message
-    let message = `Welcome to EmotionChat – write in English to be analyzed!`
+    const message = `Welcome to EmotionChat – write in English to be analyzed!`
     log(message, {
       prepend: true
     })
@@ -152,7 +152,7 @@ $(function () {
     // options.prepend - If the element should prepend
     //   all other messages (default = false)
   function addMessageElement (el, { fade = true, prepend = false } = {}) {
-    let $el = $(el)
+    const $el = $(el)
 
     if (fade) {
       $el.hide().fadeIn(FADE_TIME)
@@ -167,29 +167,29 @@ $(function () {
 
     // Log a message
   function log (message, options) {
-    let $el = $('<li>').addClass('log').text(message)
+    const $el = $('<li>').addClass('log').text(message)
     addMessageElement($el, options)
   }
   let localId = 0
     // Adds the visual chat message to the message list
   function addChatMessage (data, options = {}) {
         // Don't fade the message in if there is an 'X was typing'
-    let $typingMessages = getTypingMessages(data)
+    const $typingMessages = getTypingMessages(data)
 
     if ($typingMessages.length !== 0) {
       options.fade = false
       $typingMessages.remove()
     }
 
-    let $usernameDiv = $('<span class="username"/>')
+    const $usernameDiv = $('<span class="username"/>')
             .text(data.username)
             .css('color', getUsernameColor(data.username))
 
-    let $messageBodyDiv = $(`<span class="messageBody"/>`)
+    const $messageBodyDiv = $(`<span class="messageBody"/>`)
             .text(data.message)
 
-    let typingClass = data.typing ? 'typing' : ''
-    let $messageDiv = $(`<li class="message" id="${++localId}"/>`)
+    const typingClass = data.typing ? 'typing' : ''
+    const $messageDiv = $(`<li class="message" id="${++localId}"/>`)
             .data('username', data.username)
             .addClass(typingClass)
             .append($usernameDiv, $messageBodyDiv)
@@ -216,8 +216,8 @@ $(function () {
       lastTypingTime = (new Date()).getTime()
 
       setTimeout(function () {
-        let typingTimer = (new Date()).getTime()
-        let timeDiff = typingTimer - lastTypingTime
+        const typingTimer = (new Date()).getTime()
+        const timeDiff = typingTimer - lastTypingTime
         if (timeDiff >= TYPING_TIMER_LENGTH && typing) {
           socket.emit('stop typing')
           typing = false
@@ -247,7 +247,7 @@ $(function () {
       hash = username.charCodeAt(i) + (hash << 5) - hash
     }
         // Calculate color
-    let index = Math.abs(hash % COLORS.length)
+    const index = Math.abs(hash % COLORS.length)
     return COLORS[index]
   }
 
@@ -264,16 +264,16 @@ $(function () {
   }
 
   function createEmotionDiv (emotion) {
-    let $emotionDiv = $(`<div class="emotionDiv"/>`)
+    const $emotionDiv = $(`<div class="emotionDiv"/>`)
 
-    let $emotionButton = $(`<button class="emotion"/>`)
+    const $emotionButton = $(`<button class="emotion"/>`)
     setEmotionButton($emotionButton, emotion)
 
-    let $emotionHover = $(`<div class="emotionHover"/>`)
+    const $emotionHover = $(`<div class="emotionHover"/>`)
             .hide()
 
     for (const key in EMOTION_COLORS) {
-      let $emotionValue = $(`<button class="emotion"/>`)
+      const $emotionValue = $(`<button class="emotion"/>`)
                 .text(key)
                 .css('background-color', EMOTION_COLORS[key])
                 .click(event => {
