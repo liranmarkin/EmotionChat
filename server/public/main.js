@@ -258,40 +258,49 @@ $(function () {
     })
   }
 
+  function setEmotionButton (emotionButton, emotion) {
+      emotionButton.text(emotion)
+              .css('background-color', EMOTION_COLORS[emotion])
+  }
+
   function createEmotionDiv (emotion) {
     let $emotionDiv = $(`<div class="emotionDiv"/>`)
 
-    let $emotionSpan = $(`<span class="emotion"/>`)
-            .text(emotion)
-            .css('background-color', EMOTION_COLORS[emotion])
-            .show()
+    let $emotionButton = $(`<button class="emotion"/>`)
+    setEmotionButton($emotionButton, emotion)
 
     let $emotionHover = $(`<div class="emotionHover"/>`)
             .hide()
 
     for (const key in EMOTION_COLORS) {
-      let $emotionValue = $(`<span class="emotion"/>`)
+      let $emotionValue = $(`<button class="emotion"/>`)
                 .text(key)
                 .css('background-color', EMOTION_COLORS[key])
                 .click(event => {
                   const target = $(event.target)
+                  setEmotionButton($emotionButton, key)
                   const $message = target.closest('li.message')
                   const $messageBody = $message.children('.messageBody')
                   sendFeedback($messageBody.text(), key)
+                  $message.children('.emotionDiv').children().toggle()
                 })
       $emotionHover.append($emotionValue)
     }
 
-    $emotionDiv.append($emotionSpan)
+    $emotionDiv.append($emotionButton)
 
     if (FEEDBACK) {
       $emotionDiv.append($emotionHover)
 
       $emotionDiv.mouseover(function () {
-        $(this).children().toggle()
+        $emotionButton.hide()
+        $emotionHover.show()
+        //$(this).children().toggle()
       })
       $emotionDiv.mouseout(function () {
-        $(this).children().toggle()
+        $emotionButton.show()
+        $emotionHover.hide()
+        //$(this).children().toggle()
       })
     }
     return $emotionDiv

@@ -59,7 +59,7 @@ ul {
     text-align: center;
     top: 50%;
     width: 100%;
-}
+}/*font-size: 14px;*/
 
 .login.page .form .usernameInput {
     background-color: transparent;
@@ -71,7 +71,7 @@ ul {
     width: 400px;
 }
 
-.login.page .title {
+.login.page .title {/*font-size: 14px;*/
     font-size: 200%;
 }
 
@@ -93,7 +93,7 @@ ul {
 
 /* Font */
 
-.messages {
+.messages {/*font-size: 14px;*/
     font-size: 150%;
 }
 
@@ -130,6 +130,10 @@ ul {
     color: gray;
 }
 
+.messageBody{
+    /*max-width: 50%;*/
+}
+
 .username {
     font-weight: 700;
     overflow: hidden;
@@ -141,7 +145,7 @@ ul {
 
 .inputMessage {
     border: 10px solid #000;
-    bottom: 0;
+    bottom: 0;/*font-size: 14px;*/
     height: 60px;
     left: 0;
     outline: none;
@@ -154,14 +158,23 @@ ul {
 /* Emotion */
 
 .emotionDiv{
-  float: right
+    position: relative;
+    z-index: 1;
+    float: right;
+    display: block;
+    align-items: flex-end;
+    /*max-width: 50%;*/
 }
 
 .emotion {
+    border: none;
+    text-decoration: none;
     border-radius: 5px;
     color: white;
     padding: 2px 5px;
     margin: 2px 2px;
+    font-size: 16px;
+    text-align: center;
 }
 
 .emotionHover{
